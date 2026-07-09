@@ -14,7 +14,7 @@ When the user's project has a compose.yaml file and would like to deploy to aws.
 
 ## Step 1: Select the stack to which the application will be deployed
 
-A stack is a single deployed instance of your project in a specific AWS account and region. You can deploy multiple stacks into the same account and region, for example: `staging` and `production`.
+A [stack](https://docs.defang.io/docs/concepts/stacks) is a single deployed instance of your project in a specific AWS account and region. You can deploy multiple stacks into the same account and region, for example: `staging` and `production`.
 
 Check if there are any stacks in the current project.
 
@@ -25,7 +25,13 @@ The following information will be needed to create a stack:
 
 - Stack name: must be alphanumeric and must not start with a number
 - Region: for example: `us-west-2`
-- AWS Profile: the AWS profile with which the user should authenticate to AWS
+- AWS Profile: the AWS profile with which the user should authenticate to AWS.
+  - First, verify the AWS CLI is installed and configured by running `aws`.
+  - List available profiles with `aws configure list-profiles` and prompt the user to select one.
+  - If the AWS CLI is not installed or configured:
+    - Direct the user to the [installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+    - Once installed, guide the user to configure an AWS Profile by running `aws configure` and entering their credentials.
+    - Restart the stack creation process.
 - Deployment Mode: The deployment mode is the primary parameter for managing the cost and resiliency of your application's deployment. The following deployment modes are available: `affordable`, `balanced`, and `high_availability`. The default is `affordable`. Learn more at https://docs.defang.io/docs/concepts/deployment-modes
 
 If a new stack is created, make sure to select it before it can be used.
@@ -33,6 +39,10 @@ If a new stack is created, make sure to select it before it can be used.
 ## Step 2: Deploy the project
 
 Now that a stack is selected, the project can be deployed.
+
+### Configs
+
+The deployment will fail if any of the config values required by the project are not set. Please refer to the steering file `managing-configs` for more information on how to manage configs.
 
 ## Step 3: Monitor the deployment
 
